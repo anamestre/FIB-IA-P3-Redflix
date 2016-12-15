@@ -64,15 +64,8 @@
 )
 
 (:goal 
-	(and (visto cap2A serieA) (visto cap3A serieA)
-	       (visto cap3A serieA) (visto cap4A serieA)
-               (visto cap5A serieA) (visto pel1A serieA)
-	       (visto pel2A serieA) 
-	       
-	       (visto cap1B serieB) (visto cap3B serieB)
-	       (visto cap4B serieB) (visto cap5B serieB)
-               (visto cap6B serieB) (visto pel1B serieB)
-	       (visto pel2B serieB)  
-)))
+	(and (visto pel2A serieA) (visto cap2B serieB))
+	      
+))
 
 
