@@ -2,16 +2,12 @@
 #include <vector>
 using namespace std;
 #include <random>
-
-//http://stackoverflow.com/questions/5008804/generating-random-integer-from-a-range
-//http://www.cplusplus.com/reference/string/string/append/
-//Inicialitzacions ja fetes
 #include <fstream>
-//#include <string> 
+
 
 ofstream fichero_salida;
 fichero_salida.open("inicializacion.txt");
-//fichero_salida << ""
+
 
 
 int main() {
@@ -24,9 +20,9 @@ int main() {
 	};
 	int i = 0;
     string aux;
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 eng(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(1, 15); // define the range
+    std::random_device rd;
+    std::mt19937 eng(rd()); 
+    std::uniform_int_distribution<> distr(1, 15); 
     int nseries = distr(eng);  
     vector <serie> ser(nseries);
 	cout << "- Las series son: " << endl;
@@ -142,8 +138,6 @@ int main() {
 
 
   cout << "Añadidas las que ha visto y que quiere ver" << endl;
-
-  /////////////////////////////////////////////////////////////////////////////////////// SACAMOS EL COUT DEL MODELO DE INICIALIZACIÓN
 
     cout << "Definimos los objetos ..." << endl;
 
