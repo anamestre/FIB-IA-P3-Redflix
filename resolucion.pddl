@@ -1,63 +1,24 @@
 (define (domain planificador)
-   (:requeriments :adl :typing)
-   (:types  capitulo - item
-            pelicula - item)
-   (:predicates
-       (capitulo ?cap)
-       (pelicula ?pel)
-       (pertenece ?cap - capitulo ?ser - serie)
-       (pertenece ?pel - pelicula ?ser - serie)
-       (predecesor ?cap - capitulo ?ser -serie)
-       (predecesor ?pel - pelicula ?ser -serie)
-       (visto ?cap - capitulo ?ser - serie)
-       (visto ?pel - pelicula ?ser - serie)
-       (quiere ?cap - capitulo ?ser - serie)
-       (quiere ?pel - pelicula ?ser - serie)
-    )
+    (:requirements :adl :typing)
+    (:types contenido - item
+            dia - item)
+    (:predicates
+        (predecesor ?x - contenido ?y - contenido)  ;;x precede a y
+        (visto ?x - contenido)                 
+        (ver ?x - contenido)
+        (dia ?x - dia))                  
 
-    (:action ver_predecesor
-            :parameters (?cap ?cap1 - capitulo ?pel ?pel1 - pelicula ?serie - serie)
-            :precondition (or (and(pertenece ?cap ?serie) 
-                              (pertenece ?cap1 ?serie)
-                              (predecesor ?cap ?cap1) 
-                              (not (quiere cap ?serie) (quiere ?cap1 ?serie))
-                              )
-                              (and(pertenece ?cap ?serie) 
-                              (pertenece ?pel ?serie)
-                              (predecesor ?cap ?pel) 
-                              (not (quiere cap ?serie) (quiere ?pel ?serie))
-                              )
-                              (and(pertenece ?pel ?serie)
-                              (pertenece ?pel1 ?serie)
-                              (predecesor ?pel ?pel1) 
-                              (not (quiere cap ?pel) (quiere ?pel1 ?serie))
-                              )
-                          )
-            :effect (or(visto ?cap) (visto ?pel))
-    )
+    (:action ver_predecesor :parameters (?x - contenido ?y - contenido)
+        :precondition (and (predecesor ?x ?y) (not (ver ?x)) (ver ?y))
+        :effect (ver ?x))
 
-    (:action ver_capitulo 
-              :parameters (?cap - capitulo)
-              :precondition (and (quiere ?cap) (forall (?cap1 - capitulo) (or (not (predecesor ?cap ?cap1)) (visto ?cap1))))
-              :effect (and (not (quiere ?cap)) (visto ?cap))
-    )
+    (:action ver_contenido :parameters (?x - contenido)
+        :precondition (and (ver ?x) (forall (?y - contenido) (or (not (predecesor ?y ?x)) (visto ?y))))
+        :effect (and (not (ver ?x)) (visto ?x)))
 
-    (:action ver_pelicula
-              :parameters (?cap - capitulo ?pel - pelicula)
-              :precondition (and (quiere ?pel) (forall (?pel1 - pelicula) (or (not (predecesor ?cap ?pel1)) (visto ?pel1))))
-              :effect (and (not (quiere ?pel)) (visto ?pel))
-    )
+    (:action ver_contenido_dia :parameters (?n - dia)
+        :precondition (forall (?n - dia) (dia ?n))
+        :effect (dia ?n))
 
-    (:action ver_peliculas
-              :parameters (?pel - pelicula)
-              :precondition (and (quiere ?pel) (forall (?pel1 - pelicula) (or (not (predecesor ?pel ?pel1)) (visto ?pel1))))
-              :effect (and (not (quiere ?pel)) (visto ?pel))
-    )
+
 )
-
-
-
-
-
-
-
