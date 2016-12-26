@@ -4,256 +4,118 @@ using namespace std;
 #include <random>
 #include <fstream>
 
-
-ofstream fichero_salida;
-fichero_salida.open("inicializacion.txt");
-
-
-
 int main() {
-	vector<pair<string,string>> visto;
-	vector<pair<string,string>> para_ver;
-	struct serie {
-		string nombre;
-  		vector<string> capitulos;
-  		vector<string> peliculas;
-	};
+	std::random_device rd;
+	std::mt19937 eng(rd()); 
+	std::uniform_int_distribution<> distr(1, 15); 
+	int contenidos = distr(eng);  
+	vector<string> contenidoss (contenidos);
+	cout << "(define (problem test-01) (:domain planificador)" << endl;
+	cout << "		(:objects ";	
+	for(int i = 0; i < contenidos; ++i) {
+    	string aux = "";	
+    	string contenido = "c";
+    	aux.append(contenido);
+    	contenidoss[i] = aux.append(to_string(i));
+    	cout <<	contenidoss[i] << " ";	
+	}	
+	cout << "- contenido" << endl;
+	std::uniform_int_distribution<> distrr(contenidos, contenidos*2); 
+	int diass = distrr(eng);  
+	vector<string> dias(diass);
+	cout << "		         ";
+	for(int i = 0; i < diass; ++i) {
+    	string aux = "";	
+    	string diass = "d";
+    	aux.append(diass);
+    	dias[i] = aux.append(to_string(i));
+    	cout <<	dias[i] << " ";	
+	}
+	cout << "- dia)" << endl;
+	cout << "(:init" << endl;
+	int contenidos_ = contenidos;
 	int i = 0;
-    string aux;
-    std::random_device rd;
-    std::mt19937 eng(rd()); 
-    std::uniform_int_distribution<> distr(1, 15); 
-    int nseries = distr(eng);  
-    vector <serie> ser(nseries);
-	cout << "- Las series son: " << endl;
-	for(i = 0; i < nseries; ++i){
-		aux = "";
-		string seriee = "serie";
-		aux.append(seriee);
-		ser[i].nombre = aux.append(to_string(i));
-		cout << ser[i].nombre << " ";
-	}
-	cout << endl;
-	cout << endl;
-    int j = 0;   
-    while(j < ser.size()) {
-    	std::uniform_int_distribution<> distruu(0, 50);
-    	int ncapitulos = distruu(eng);  
-    	cout << "Los capitulos de la serie " << ser[j].nombre << " son: " << endl;
-    	for(i = 0; i < ncapitulos; ++i){
-    		aux = "";
-			string seriee = "capitulo";
-			aux.append(seriee);	
-			aux.append(to_string(i));
-			ser[j].capitulos.push_back(aux.append(ser[j].nombre));
-			cout << ser[j].capitulos[i] << " ";
-			aux.erase(0,aux.length()-1);
+	while(i < contenidoss.size() and contenidos_ != 0) {
+		std::uniform_int_distribution<> dista(1, contenidos_); 
+		std::uniform_int_distribution<> rand(1, dista(eng));
+		int series = dista(eng);
+		contenidos_ = contenidos_ - series;
+		int j = 0;
+		if(series == 1 and i == 0) break;
+		else if(series == 2 and i == 0) {
+			cout << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+			++i;
+			j = j + 2;
 		}
-		cout << endl;
-		cout << endl;
-    	std::uniform_int_distribution<> distru(0, 10);   
-    	int npeliculas = distru(eng);  
-    	cout << "Las peliculas de la serie " << ser[j].nombre << " son: " << endl;
-		for(i = 0; i < npeliculas; ++i){
-			aux = "";
-			string seriee = "pelicula";
-			aux.append(seriee);
-			aux.append(to_string(i));
-			ser[j].peliculas.push_back(aux.append(ser[j].nombre));
-			cout << ser[j].peliculas[i] << " ";
-			aux.erase(0,aux.length()-1);
-		}
-		cout << endl;
-		cout << endl;
-		++j;
+		while(j+1 != series and series != 1 and series != 2) {
+			if(i == rand(eng) or j == rand(eng)) {
+			++i; ++j;
+			}
+			else{
+				cout << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+				++j;
+				++i;
+			}
+			
+		} 
 	}
+	/*std::uniform_int_distribution<> dista(1, contenidoss.size()); 
+	int series = dista(eng);
+	vector<string> cont = contenidoss;
+	while(i < series and series !=1) {
+		if(series == 2 and i == 0) {
+			std::uniform_int_distribution<> dista(1, cont.size()); 
+			int pos1 = dista(eng);
+			string pre1 = cont[pos1];
+			//cont.erase(cont.begin()+pos1);
 
-	cout << "Añadidas capitulos y peliculas" << endl;
-    
-   j = 0;
-   while(j < ser.size()) {
-   		int n_capitulos = ser[j].capitulos.size();
-   		int n_peliculas = ser[j].peliculas.size();
-   		std::uniform_int_distribution<> vist(0, n_capitulos);
-   		int ncap = vist(eng);
-   		for(i = 0; i < ncap; ++i){
-   			cout << "Capítulos vistos de la serie -> " << ser[j].nombre << endl;
-   			int ncapp = vist(eng);
-   			aux = "";
-   			string seri = "capitulo";
-   			aux.append(seri);	
-   			aux.append(to_string(ncapp));
-   			aux.append(ser[j].nombre);
-			visto.push_back(make_pair(ser[j].nombre,aux));
-			cout << aux << endl;
-			cout << j << endl;
-   		}
-   		std::uniform_int_distribution<> vistt(0, n_peliculas);
-   		int npel = vistt(eng);
-   		for( i = 0; i < npel; ++i){
-   			cout << "Películas vistas de la serie -> " << ser[j].nombre << endl;
-   			int npell = vistt(eng);
-   			aux = "";
-   			string seri_ = "pelicula";
-			aux.append(seri_);	
-			aux.append(to_string(npell));	
-			aux.append(ser[j].nombre);
-			visto.push_back(make_pair(ser[j].nombre,aux));
-			cout << aux << endl;
-   		}	
-   		++j;
-  }
-  j = 0;
-  while(j < ser.size()) {
-   		int n_capitulos = ser[j].capitulos.size();
-   		int n_peliculas = ser[j].peliculas.size();
-   		std::uniform_int_distribution<> vist(0, n_capitulos);
-   		int ncap = vist(eng);
-   		for(i = 0; i < ncap; ++i){
-   			cout << "Capítulos que quiere ver de la serie -> " << ser[j].nombre << endl;
-   			int ncapp = vist(eng);
-   			aux = "";
-   			string seri = "capitulo";
-   			aux.append(seri);	
-   			aux.append(to_string(ncapp));
-   			aux.append(ser[j].nombre);
-			para_ver.push_back(make_pair(ser[j].nombre,aux));
-			cout << aux << endl;
-   		}
-   		std::uniform_int_distribution<> vistt(0, n_peliculas);
-   		int npel = vistt(eng);
-   		for( i = 0; i < npel; ++i){
-   			cout << "Películas que quiere ver de la serie -> " << ser[j].nombre << endl;
-   			int npell = vistt(eng);
-   			aux = "";
-   			string seri_ = "pelicula";
-			aux.append(seri_);	
-			aux.append(to_string(npell));	
-			aux.append(ser[j].nombre);
-			para_ver.push_back(make_pair(ser[j].nombre,aux));
-			cout << aux << endl;
-   		}	
-   		++j;
-  }
+			std::uniform_int_distribution<> dist(1, cont.size()); 
+			int pos2 = dist(eng);
+			string pre2 = cont[pos2];
+			//cont.erase(pos2);
+			cout << "(predecesor " << pre1 << " " << pre2 << ")" << endl;
+			break;
+		}
+		else {
+			std::uniform_int_distribution<> dista(1, cont.size()); 
+			int pos1 = dista(eng);
+			string pre1 = cont[pos1];
+			//cont.erase(pos1);
 
-
-  cout << "Añadidas las que ha visto y que quiere ver" << endl;
-
-    cout << "Definimos los objetos ..." << endl;
-
-    fichero_salida << "(define (problem planifiacion1)" << endl;
-    fichero_salida << "	(:domain planificador)" << endl;
-    fichero_salida << "(:objects ";
-    for (int i = 0; i < ser.size(); ++i){
-    	fichero_salida << ser[i].nombre << " ";
-    }
-    fichero_salida << " - serie" << endl;
-    j = 0;
-    for (int i = 0; i < ser.size(); ++i){
-    	while(j < ser[i].capitulos.size()){
-    		fichero_salida << ser[i].capitulos[j] << " ";
-    		++j;
-    	}
-    	j = 0; 	
-    }
-    fichero_salida << " - capitulo" << endl;
-    for (int i = 0; i < ser.size(); ++i){
-    	while(j < ser[i].peliculas.size()){
-    		fichero_salida << ser[i].peliculas[j] << " ";
-    		++j;
-    	}
-    	j = 0; 	
-    }
-    fichero_salida << " - pelicula)" << endl;
-
-    cout << "Definimos la inicialización ..." << endl;
-
-    fichero_salida << "(:init" << endl;
-    
-    for (i = 0; i < ser.size(); ++i){
-            fichero_salida << "(serie " << ser[i].nombre << ")" << endl;
-    }
-
-    for (i = 0; i < ser.size(); ++i){
-            j = 0;
-            while (j < ser[i].capitulos.size()){
-                    fichero_salida << "(capitulo " << ser[i].capitulos[j] << ")" << endl;
-                    ++j;
-            }
-    }
-
-    for (i = 0; i < ser.size(); ++i){
-            j = 0;
-            while (j < ser[i].peliculas.size()){
-                    fichero_salida << "(pelicula " << ser[i].peliculas[j] << ")" << endl;
-                    ++j;
-            }
-    }
-
-    for (i = 0; i < ser.size(); ++i){
-            j = 0;
-            while(j < ser[i].capitulos.size()){
-                    fichero_salida << "(pertenece " << ser[i].capitulos[j] << " " << ser[i].nombre << ")" << endl;
-                    ++j;
-            }
-            j = 0;
-            while (j < ser[i].peliculas.size()){
-                    fichero_salida << "(pertenece " << ser[i].peliculas[j] << " " << ser[i].nombre << ")" << endl;
-                    ++j;
-            }
-    }
-
-    for (i = 0; i < ser.size(); ++i){
-            cout << "el vector de capitulos es de tamaño: " << ser[i].capitulos.size() << endl;
-             if(ser[i].capitulos.size() > 1) {
-             	j = 0;
-                    while (j < ser[i].capitulos.size()-1) {
-                    	cout << j << endl;
-                            fichero_salida << "(predecesor " << ser[i].capitulos[j] << " " << ser[i].capitulos[j+1] << ")" << endl;
-                            ++j;
-
-                    }
-                }
-                    cout << "TATATATAT" << endl;
-                    bool ppp = true;
-                    j = 0;
-                     while (j < ser[i].peliculas.size()-1 and ser[i].peliculas.size() > 0) {
-                     		cout << "el vector de peliculas es de tamaño" << ser[i].peliculas.size() << endl;
-                            if(ser[i].capitulos.size() > 0 and ppp) {
-                            		int tam = ser[i].capitulos.size()-1;
-                                    fichero_salida << "(predecesor " << ser[i].capitulos[tam] << " " << ser[i].peliculas[j] << ")" << endl;
-                                    ppp = false;
-                                    cout << j << endl;
-                            }
-                            else{
-                            		cout << j << endl;
-                                    fichero_salida << "(predecesor " << ser[i].peliculas[j] << " " << ser[i].peliculas[j+1] << ")" << endl;
-                                    ++j;
-                            }
-                    } 
-    }
-    for (i = 0; i < visto.size(); ++i){
-            fichero_salida << "(visto " <<  visto[i].second << " " << visto[i].first << ")" << endl;
-    }
-
-    for (i = 0; i < para_ver.size(); ++i){
-            fichero_salida << "(quiere " << para_ver[i].second << " " << para_ver[i].first << ")" << endl;
-    }
-
-    cout << "Calculando la meta..." << endl;
-    fichero_salida << "(:goal" << endl;
-    if(para_ver.size() == 1) fichero_salida << "(visto " << para_ver[1].first << " " << para_ver[2].second << ")" << endl;
-    else{
-            cout << "(and ";
-            for(i = 0; i < para_ver.size(); ++i){
-                    fichero_salida << "(visto " << para_ver[i].second << " " << para_ver[i].first << ") ";
-            }
-            fichero_salida << ")";
-    }
-    fichero_salida << ")" << endl;
+			std::uniform_int_distribution<> dist(1, cont.size()); 
+			int pos2 = dist(eng);
+			string pre2 = cont[pos2];
+			//cont.erase(pos2);
+			cout << "(predecesor " << pre1 << " " << pre2 << ")" << endl;
+			++i;
+		}
+	} 	*/
+	std::uniform_int_distribution<> dist(1, contenidos); 
+	int visto_ = dist(eng); 
+	vector<string> visto (visto_);
+	for(i = 0; i < visto_; ++i){
+		std::random_device rd;
+		std::mt19937 eng(rd()); 
+		std::uniform_int_distribution<> distr(1, visto_);
+		int vistoo = distr(eng) - 1; 
+		cout << "(visto " << contenidoss[vistoo] << ")" << endl;
+		visto[i] = contenidoss[vistoo];
+	}
+	std::uniform_int_distribution<> dis(1, contenidos); 
+	int ver_ = dis(eng); 
+	vector<string> ver (ver_);
+	for(i = 0; i < ver_; ++i){
+		std::random_device rd;
+		std::mt19937 eng(rd()); 
+		std::uniform_int_distribution<> distr(1, visto_);
+		int verr = distr(eng) - 1; 
+		cout << "(ver " << contenidoss[verr] << ")" << endl;
+		ver[i] = contenidoss[verr];
+	}
+	for(i = 0; i < dias.size(); ++i){
+		cout << "(dia " << dias[i] << ")" << endl;
+	}
+	cout << ")" << endl;
+	cout << endl;
+	cout << " (:goal (and (forall (?x - contenido) (not (ver ?x))) (forall (?n - dia) (dia ?n)))))" << endl;
 }
-
-fichero_salida.close();
-
-
-
