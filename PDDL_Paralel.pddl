@@ -1,7 +1,7 @@
-(define (domain libros-domain)
+(define (domain conros-domain)
 	(:requirements :strips :typing :adl :equality)
 
-	(:types libro - libro
+	(:types conro - conro
 			mes - mes)
 	(:predicates
 		(quiero_ver ?con - contenido)
@@ -58,5 +58,5 @@
 )
 
 
-;ficar (paralelo lib2 lib10) a l'altre arxiu
-;    	(paralelo lib10 lib3)
+;ficar (paralelo con2 con10) a l'altre arxiu
+;    	(paralelo con10 con3)
