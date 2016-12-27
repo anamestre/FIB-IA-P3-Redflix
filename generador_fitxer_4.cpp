@@ -44,7 +44,7 @@ int main() {
 		int j = 0;
 		if(series == 1 and i == 0) break;
 		else if(series == 2 and i == 0) {
-			fichero_salida << "(predecesores " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+			fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 			++i;
 			j = j + 2;
 		}
@@ -53,7 +53,7 @@ int main() {
 			++i; ++j;
 			}
 			else{
-				fichero_salida << "(predecesores " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+				fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 				++j;
 				++i;
 			}
@@ -91,14 +91,17 @@ int main() {
 	for(i = 0; i < contenidoss.size(); ++i){
 		std::uniform_int_distribution<> dist(1, 200); 
 		int conn = dist(eng); 
-		fichero_salida << "(= (minutosContenido" << contenidoss[i] << ") " << conn << ")" << endl;
+		fichero_salida << "(= (minutosContenido " << contenidoss[i] << ") " << conn << ")" << endl;
 	}
-	for(i = 0; i < contenidoss.size(); ++i){
-		fichero_salida << "(= (minutosDia " << contenidoss[i] << ") " << 0 << ")" << endl;
+	for(i = 0; i < dias.size(); ++i){
+		fichero_salida << "(= (minutosDia " << dias[i] << ") " << 0 << ")" << endl;
 	}
 
 	for(i = 0; i < contenidoss.size(); ++i){
 		fichero_salida << "(= (predecesoresAsignados " << contenidoss[i] << ") " << 0 << ")" << endl;
+	}
+	for(i = 0; i < contenidoss.size(); ++i){
+		fichero_salida << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
 	}
 
 	fichero_salida << ")" << endl;
