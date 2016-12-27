@@ -44,7 +44,7 @@ int main() {
 		int j = 0;
 		if(series == 1 and i == 0) break;
 		else if(series == 2 and i == 0) {
-			fichero_salida << "(predecesores " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+			fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 			++i;
 			j = j + 2;
 		}
@@ -53,7 +53,7 @@ int main() {
 			++i; ++j;
 			}
 			else{
-				fichero_salida << "(predecesores " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+				fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 				++j;
 				++i;
 			}
@@ -89,7 +89,13 @@ int main() {
 		fichero_salida << "(= (ultimoDia " << contenidoss[i] << ") " << 0 << ")" << endl;
 	}
 	for(i = 0; i < dias.size(); ++i){
-		fichero_salida << "(= (ordenDia " << dias[i] << ") " << 0 << ")" << endl;
+		fichero_salida << "(= (capacidadDia " << dias[i] << ") " << 0 << ")" << endl;
+	}
+		for(i = 0; i < contenidoss.size(); ++i){
+		fichero_salida << "(= (predecesoresAsignados " << contenidoss[i] << ") " << 0 << ")" << endl;
+	}
+	for(i = 0; i < contenidoss.size(); ++i){
+		fichero_salida << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
 	}
 
 	fichero_salida << ")" << endl;
