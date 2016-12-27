@@ -4,36 +4,36 @@
 	(:types contenido dia)
 
 	(:predicates
-		(quiero_ver ?lib - contenido)
-		(visto ?lib - contenido)
-		(predecesor ?lib - contenido ?pred - contenido)
-		(ver ?lib - contenido)
-		(diaocupado ?m - dia)
+		(quiero_ver ?con - contenido)
+		(visto ?con - contenido)
+		(predecesor ?con - contenido ?cont - contenido)
+		(ver ?con - contenido)
+		(diaocupado ?d - dia)
 	)
-	(:action planear
-		:parameters (?lib - contenido ?m - dia)	
+	(:action ver_Contenidos
+		:parameters (?con - contenido ?d - dia)	
 		:precondition
 			(and
-				(not (diaocupado ?m)) 
-				(not (quiero_ver ?lib))	
-				(not (quiero_ver ?lib))
-				(forall (?l - contenido)(or
+				(not (diaocupado ?d)) 
+				(not (visto ?con))	
+				(not (quiero_ver ?con))
+				(forall (?c - contenido) (or
 										(and       
-											(predecesor ?lib ?l)
+											(predecesor ?con ?c)
 											(or
-											(quiero_ver ?l)
-											(quiero_ver ?l)))
+											(visto ?c)
+											(quiero_ver ?c)))
 										(and 
-											(predecesor ?l ?lib)
-											(ver ?l)
+											(predecesor ?c ?con)
+											(ver ?c)
 										)
-									  	(not (predecesor ?lib ?l)) 
+									  	(not (predecesor ?con ?c)) 
 									  )
 				) 
 			)
 		:effect
-		(and  (diaocupado ?m)
-			  (quiero_ver ?lib)	
+		(and  (diaocupado ?d)
+			  (quiero_ver ?con)	
 		)
 	)
 )
