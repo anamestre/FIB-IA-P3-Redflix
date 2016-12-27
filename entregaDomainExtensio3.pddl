@@ -12,6 +12,10 @@
         (predecesor ?x - contenido ?y - contenido)  ;;x precede a y             
         (ver ?x - contenido)
         (contenidoAsignado ?c - contenido))
+     
+    (:action ver_predecesor :parameters (?x - contenido ?y - contenido)
+        :precondition (and (predecesor ?x ?y) (ver ?y))
+        :effect  (ver ?x))
         
     (:action asignar_contenidos :parameters (?d - dia ?x - contenido)
         :precondition (and (ver ?x) (not (contenidoAsignado ?x)) (< (capacidadDia ?d) 3) (> (ordenDia ?d) (ultimoDia ?x)) 
