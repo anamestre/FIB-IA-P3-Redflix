@@ -9,18 +9,9 @@
         (predecesores ?c - contenido)     ;; el num de predecesores que tiene cada contenido.
         (predecesoresAsignados ?c - contenido)) ;; el num de predecesores de cada contenido que ya se ha asignado a un dia.
     (:predicates
-        (predecesor ?x - contenido ?y - contenido)  ;;x precede a y
-        (visto ?x - contenido)                 
+        (predecesor ?x - contenido ?y - contenido)  ;;x precede a y             
         (ver ?x - contenido)
         (contenidoAsignado ?c - contenido))
-
-    (:action ver_predecesor :parameters (?x - contenido ?y - contenido)
-        :precondition (and (predecesor ?x ?y) (not (ver ?x)) (ver ?y))
-        :effect (and (ver ?x) (increase (predecesores ?y) 1)))
-        
-    (:action ver_contenido :parameters (?x - contenido)
-        :precondition (and (ver ?x) (forall (?y - contenido) (or (not (predecesor ?y ?x)) (visto ?y))))
-        :effect (and (not (ver ?x)) (visto ?x)))
         
     (:action asignar_contenidos :parameters (?d - dia ?x - contenido)
         :precondition (and (ver ?x) (not (contenidoAsignado ?x)) (< (capacidadDia ?d) 3) (> (ordenDia ?d) (ultimoDia ?x)) 
