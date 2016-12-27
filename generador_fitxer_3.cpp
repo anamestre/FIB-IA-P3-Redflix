@@ -45,26 +45,26 @@ int main() {
 		contenidos_ = contenidos_ - series;
 		int j = 0;
 		if(series == 1 and i == 0) {
-			fichero_salida << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
+			cout << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
 			break;
 		}
 		else if(series == 2 and i == 0) {
-			fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
-			fichero_salida << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
-			fichero_salida << "(= (predecesores " << contenidoss[i+1] << ") " << 1 << ")" << endl;
+			cout << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+			cout << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
+			cout << "(= (predecesores " << contenidoss[i+1] << ") " << 1 << ")" << endl;
 			++i;
 			j = j + 2;
 		}
 		while(j+1 != series and series != 1 and series != 2) {
-			if(i == rand(eng) or j == rand(eng)) {
+			if(i == rand(eng) or j == rand(eng) and j < 1) {
 			++i; ++j;
 			m = 0;
 			}
 			else{
-				fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
-				fichero_salida << "(= (predecesores " << contenidoss[i] << ") " << m << ")" << endl;
+				cout << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+				cout << "(= (predecesores " << contenidoss[i] << ") " << m << ")" << endl;
 				++m;
-				fichero_salida << "(= (predecesores " << contenidoss[i+1] << ") " << m << ")" << endl;
+				cout << "(= (predecesores " << contenidoss[i+1] << ") " << m << ")" << endl;
 				++j;
 				++i;
 			}
