@@ -24,7 +24,7 @@ int main() {
 	}	
 	fichero_salida << "- contenido" << endl;
 	fichero_salida << "		         ";
-	vector<string> dias (contenidoss.size());
+	vector<string> dias (contenidoss.size() + 1);
 	for(int i = 0; i < contenidoss.size()+1; ++i) {
     	string aux = "";	
     	string diass = "d";
@@ -37,6 +37,7 @@ int main() {
 	int contenidos_ = contenidos;
 	int i = 0;
 	int m = 0;
+	vector<int> comptador_prede(contenidoss.size(), 0);
 	while(i < contenidoss.size() and contenidos_ != 0) {
 		m = 0;
 		std::uniform_int_distribution<> dista(1, contenidos_); 
@@ -44,14 +45,16 @@ int main() {
 		int series = dista(eng);
 		contenidos_ = contenidos_ - series;
 		int j = 0;
-		if(series == 1 and i == 0) {
+		/*if(series == 1 and i == 0) {
 			cout << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
 			break;
-		}
-		else if(series == 2 and i == 0) {
-			cout << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
-			cout << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
-			cout << "(= (predecesores " << contenidoss[i+1] << ") " << 1 << ")" << endl;
+		}*/
+		//else 
+		if(series == 2 and i == 0) {
+			fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+			++comptador_prede[i+1];
+			/*cout << "(= (predecesores " << contenidoss[i] << ") " << 0 << ")" << endl;
+			cout << "(= (predecesores " << contenidoss[i+1] << ") " << 1 << ")" << endl;*/
 			++i;
 			j = j + 2;
 		}
@@ -61,15 +64,19 @@ int main() {
 			m = 0;
 			}
 			else{
-				cout << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
-				cout << "(= (predecesores " << contenidoss[i] << ") " << m << ")" << endl;
+				fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+				++comptador_prede[i+1];
+				/*cout << "(= (predecesores " << contenidoss[i] << ") " << m << ")" << endl;
 				++m;
-				cout << "(= (predecesores " << contenidoss[i+1] << ") " << m << ")" << endl;
+				cout << "(= (predecesores " << contenidoss[i+1] << ") " << m << ")" << endl;*/
 				++j;
 				++i;
 			}
 			
 		} 
+	}
+	for(int index = 0; index < comptador_prede.size(); ++index){
+	    fichero_salida << "(= (predecesores " << contenidoss[index] << ") " << comptador_prede[index] << ")" << endl;
 	}
 	std::uniform_int_distribution<> dist(1, contenidos); 
 	int visto_ = dist(eng); 
@@ -111,5 +118,5 @@ int main() {
 
 	fichero_salida << ")" << endl;
 	fichero_salida << endl;
-	fichero_salida << " (:goal (and (forall (?x - contenido) (imply (ver ?x) (contenidoAsignado ?x)))))" << endl;
+	fichero_salida << " (:goal (and (forall (?x - contenido) (imply (ver ?x) (contenidoAsignado ?x))))))" << endl;
 }
