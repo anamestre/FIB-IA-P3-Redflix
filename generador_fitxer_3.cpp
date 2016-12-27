@@ -44,7 +44,7 @@ int main() {
 		int j = 0;
 		if(series == 1 and i == 0) break;
 		else if(series == 2 and i == 0) {
-			fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+			fichero_salida << "(predecesores " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 			++i;
 			j = j + 2;
 		}
@@ -53,7 +53,7 @@ int main() {
 			++i; ++j;
 			}
 			else{
-				fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
+				fichero_salida << "(predecesores " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 				++j;
 				++i;
 			}
@@ -83,16 +83,16 @@ int main() {
 		ver[i] = contenidoss[verr];
 	}
 	for(i = 0; i < dias.size(); ++i){
-		cout << "(= (ordenDia " << dias[i] << ") " << i<< ")" << endl;
+		fichero_salida << "(= (ordenDia " << dias[i] << ") " << i<< ")" << endl;
 	}
 	for(i = 0; i < contenidoss.size(); ++i){
-		cout << "(= (ultimoDia " << contenidoss[i] << ") " << 0 << ")" << endl;
+		fichero_salida << "(= (ultimoDia " << contenidoss[i] << ") " << 0 << ")" << endl;
 	}
 	for(i = 0; i < dias.size(); ++i){
-		cout << "(= (ordenDia " << dias[i] << ") " << 0 << ")" << endl;
+		fichero_salida << "(= (ordenDia " << dias[i] << ") " << 0 << ")" << endl;
 	}
 
 	fichero_salida << ")" << endl;
 	fichero_salida << endl;
-	fichero_salida << " (:goal (and (forall (?x - contenido) (not (ver ?x))) (forall (?n - dia) (dia ?n)))))" << endl;
+	fichero_salida << " (:goal (and (forall (?x - contenido) (not (ver ?x))))))" << endl;
 }
