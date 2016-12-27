@@ -62,7 +62,7 @@ int main() {
 	}
 	std::uniform_int_distribution<> dist(1, contenidos); 
 	int visto_ = dist(eng); 
-	vector<string> visto (visto_);
+	/*vector<string> visto (visto_);
 	for(i = 0; i < visto_; ++i){
 		std::random_device rd;
 		std::mt19937 eng(rd()); 
@@ -70,7 +70,7 @@ int main() {
 		int vistoo = distr(eng) - 1; 
 		fichero_salida << "(visto " << contenidoss[vistoo] << ")" << endl;
 		visto[i] = contenidoss[vistoo];
-	}
+	}*/
 	std::uniform_int_distribution<> dis(1, contenidos); 
 	int ver_ = dis(eng); 
 	vector<string> ver (ver_);
@@ -100,5 +100,5 @@ int main() {
 
 	fichero_salida << ")" << endl;
 	fichero_salida << endl;
-	fichero_salida << " (:goal (and (forall (?x - contenido) (not (ver ?x))))))" << endl;
+	fichero_salida << " (:goal (and (forall (?x - contenido) (imply (ver ?x) (contenidoAsignado ?x)))))" << endl;
 }
