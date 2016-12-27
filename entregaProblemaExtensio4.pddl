@@ -12,9 +12,12 @@
 (= (ultimoDia c0) 0)
 (= (ultimoDia c1) 0)
 (= (ultimoDia c2) 0)
-(= (capacidadDia d0) 0)
-(= (capacidadDia d1) 0)
-(= (capacidadDia d2) 0)
+(= (minutosContenido c0) 20)
+(= (minutosContenido c1) 30)
+(= (minutosContenido c2) 40)
+(= (minutosDia d0) 0)
+(= (minutosDia d1) 0)
+(= (minutosDia d2) 0)
 (= (predecesores c0) 0)
 (= (predecesores c1) 0)
 (= (predecesores c2) 0)
@@ -24,6 +27,3 @@
 )
 
  (:goal (and (forall (?x - contenido) (not (ver ?x))))))
-
-
-
