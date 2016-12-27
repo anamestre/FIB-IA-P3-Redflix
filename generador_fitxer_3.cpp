@@ -25,7 +25,7 @@ int main() {
 	fichero_salida << "- contenido" << endl;
 	fichero_salida << "		         ";
 	vector<string> dias (contenidoss.size());
-	for(int i = 0; i < contenidoss.size(); ++i) {
+	for(int i = 0; i < contenidoss.size()+1; ++i) {
     	string aux = "";	
     	string diass = "d";
     	aux.append(diass);
@@ -58,13 +58,13 @@ int main() {
 		while(j+1 != series and series != 1 and series != 2) {
 			if(i == rand(eng) or j == rand(eng)) {
 			++i; ++j;
+			m = 0;
 			}
 			else{
 				fichero_salida << "(predecesor " << contenidoss[i] << " " << contenidoss[i+1] << ")" << endl;
 				fichero_salida << "(= (predecesores " << contenidoss[i] << ") " << m << ")" << endl;
 				++m;
 				fichero_salida << "(= (predecesores " << contenidoss[i+1] << ") " << m << ")" << endl;
-				++m;
 				++j;
 				++i;
 			}
