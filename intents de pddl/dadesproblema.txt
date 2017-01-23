@@ -1,0 +1,27 @@
+(define (domain planificador)
+   (:predicates
+       (serie ?ser)
+       (capitulo ?cap)
+       (pelicula ?pel)
+       (pertenece ?x ?ser)
+       (predecesor ?a ?b)
+       (visto ?n ?ser)
+       (quiere ?x ?ser))
+
+
+   (:action ver
+	:parameters (?ser ?cap ?pel ?a ?b ?x ?n)
+       	:precondition (and (quiere ?x ?ser)
+		      (serie ?ser)
+		      (or (capitulo ?x) (pelicula ?x))
+		      (quiere ?x ?ser)
+		      
+
+
+		      (predecesor ?a ?b)
+			
+
+
+
+    )
+			   	
