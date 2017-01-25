@@ -4,7 +4,7 @@
 * Curso 2016 - 2017.
 * Ismael Julià, Ana Mestre i Gorka Piñol.
 
-## Compilar los generadores: (No es necesario, ya damos el archivo ejecutable)
+## Cómo compilar los generadores:
 
  * [Generador extensión 3] g++ -std=c++11 -o gen3 generador_fitxer_3.cpp
  * [Generador extensión 4] g++ -std=c++11 -o gen4 generador_fitxer_4.cpp
