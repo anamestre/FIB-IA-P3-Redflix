@@ -2,7 +2,7 @@
 
 ## Práctica 3 IA: Planificación de películas y series para Redflix.
 * Curso 2016 - 2017.
-* Ismael Julià, Ana Mestre i Gorka Piñol.
+* Ismael Julià, Ana Mestre y Gorka Piñol.
 
 ## Cómo compilar los generadores:
 
